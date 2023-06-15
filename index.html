@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adventure Game</title>
+  <style>
+    body {
+       background-image: url('https://th.bing.com/th/id/R.f1c9f786ac0c99f83664a2b8054c9237?rik=tX1QMLga941UgA&pid=ImgRaw&r=0');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    h1, h2, p {
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #23527c;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <h1>Adventur Game</h1>
+    <p id="game-text">Estás en una encrucijada en el bosque. ¿Qué camino eliges?</p>
+
+    <div id="buttons-container">
+      <!-- Los botones se generarán dinámicamente aquí -->
+    </div>
+    
+    <button id="reset-button" onclick="regresarAlInicio()">Regresar al inicio</button>
+  </div>
+
+  <script>
+    var gameContainer = document.getElementById('game-container');
+    var gameText = document.getElementById('game-text');
+    var buttonsContainer = document.getElementById('buttons-container');
+    var resetButton = document.getElementById('reset-button');
+
+    // Define las decisiones y los finales del juego
+    var decisiones = [
+      {
+        pregunta: 'Estás en una encrucijada en el bosque. ¿Qué camino eliges?',
+        opciones: [
+          { texto: 'Camino de la Izquierda', siguiente: 1 },
+          { texto: 'Camino de la Derecha', siguiente: 2 },
+          { texto: 'Camino del Centro', siguiente: 3 }
+        ]
+      },
+      {
+        pregunta: 'Te encuentras con una cabaña abandonada. ¿Qué haces?',
+        opciones: [
+          { texto: 'Explorar la cabaña', siguiente: 4 },
+          { texto: 'Continuar por el camino', siguiente: 5 }
+        ]
+      },
+      {
+        pregunta: 'Encuentras un río caudaloso. ¿Qué decides?',
+        opciones: [
+          { texto: 'Cruzar el río nadando', siguiente: 6 },
+          { texto: 'Buscar un puente cercano', siguiente: 5 }
+        ]
+      },
+      {
+        pregunta: 'Te adentras en un oscuro túnel. ¿Cómo continúas?',
+        opciones: [
+          { texto: 'Avanzar con cautela', siguiente: 4 },
+          { texto: 'Retroceder y buscar otra ruta', siguiente: 6 }
+        ]
+      },
+      {
+        pregunta: 'Has encontrado un tesoro oculto y te conviertes en un millonario.',
+        opciones: []
+      },
+      {
+        pregunta: 'El camino te lleva a una hermosa cascada donde encuentras paz y tranquilidad.',
+        opciones: []
+      },
+      {
+        pregunta: 'Te encuentras con un oso salvaje. ¿Qué haces?',
+        opciones: [
+          { texto: 'Correr lejos del oso', siguiente: 7 },
+          { texto: 'Enfrentar al oso', siguiente: 8 }
+        ]
+      },
+      {
+        pregunta: 'Logras escapar del oso y encuentras un refugio seguro.',
+        opciones: []
+      },
+      {
+        pregunta: 'Valientemente te enfrentas al oso, pero no puedes vencerlo.',
+        opciones: []
+      }
+    ];
+
+    var decisionActual = 0;
+
+    function mostrarDecision(decision) {
+      var pregunta = decision.pregunta;
+      var opciones = decision.opciones;
+
+      gameText.textContent = pregunta;
+
+      buttonsContainer.innerHTML = '';
+      for (var i = 0; i < opciones.length; i++) {
+        var opcion = opciones[i];
+        var button = document.createElement('button');
+        button.textContent = opcion.texto;
+        button.addEventListener('click', capturarSiguiente(opcion.siguiente));
+        buttonsContainer.appendChild(button);
+      }
+    }
+
+    function capturarSiguiente(siguiente) {
+      return function() {
+        tomarDecision(siguiente);
+      };
+    }
+
+    function tomarDecision(siguiente) {
+      if (siguiente === -1) {
+        mostrarFinal();
+      } else {
+        decisionActual = siguiente;
+        mostrarDecision(decisiones[decisionActual]);
+      }
+    }
+
+    function mostrarFinal() {
+      gameText.textContent = 'Has alcanzado el final del juego.';
+      buttonsContainer.innerHTML = '';
+      resetButton.style.display = 'block';
+    }
+
+    function regresarAlInicio() {
+      resetButton.style.display = 'none';
+      decisionActual = 0;
+      mostrarDecision(decisiones[decisionActual]);
+      resetButton.style.display = 'block';
+    }
+
+    
+    mostrarDecision(decisiones[decisionActual]);
+  </script>
+</body>
+</html>

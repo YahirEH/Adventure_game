@@ -1,0 +1,30 @@
+ body {
+       background-image: url('https://th.bing.com/th/id/R.f1c9f786ac0c99f83664a2b8054c9237?rik=tX1QMLga941UgA&pid=ImgRaw&r=0');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    h1, h2, p {
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #23527c;
+    }
